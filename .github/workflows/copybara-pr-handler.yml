@@ -63,8 +63,9 @@ jobs:
                 }
 
                 // Extract PR number from commit message
-                // Pattern: "Merge https://github.com/volcengine/veadk-python/pull/3333"
-                const prMatch = message.match(/Merge https:\/\/github\.com\/zhang598\/demo\/pull\/(\d+)/);
+                const repoUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/pull/`;
+                const prRegex = new RegExp(`Merge ${repoUrl}(\\d+)`);
+                const prMatch = message.match(prRegex);
 
                 if (!prMatch) {
                   console.log('No PR number found in Copybara commit message');
